@@ -19,20 +19,20 @@ class Solution:
     def getKmid(self, arr: List[int], totalLen: int) -> float:
         k = int(totalLen/2)
         if totalLen % 2 == 1:
-            return float(nums1[k])
+            return float(arr[k])
         else:
-            return (nums1[k]+nums1[k-1])/2
+            return (arr[k]+arr[k-1])/2
             
     def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
-        m = len(nums1)
-        n = len(nums2)
-        k = int((m + n)/2)  #寻找第k索引和k-1（偶数长度）
+        m,n = len(nums1),len(nums2)
         if m == 0:
             return self.getKmid(nums2, n)
         if n == 0:
             return self.getKmid(nums1, m)
         if(nums1[0] > nums2[0]):
-            return findMedianSortedArrays(nums2, nums1)
+            nums1,nums2 = nums2,nums1
+        
+        k = int((m + n)/2)  #寻找第k索引和k-1（偶数长度）
         while len(nums2) > 0 :
             i = self.binarySearch(nums1, nums2[0])
             if(i>k):
