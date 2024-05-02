@@ -21,8 +21,9 @@ class Solution:
         语法分析： BNF表达式
         expression => term [ + term | - term ] ...
         term => factor [ * factor | / factor ] ...
-        factor => NUM | ( expression )
+        factor => NUM | ( expression ) | -factor
         """
+        
         # 实现计算单元
         def cpu(a, op , b):
             if op == "+":
@@ -33,6 +34,7 @@ class Solution:
                 return a*b
             elif op == "/":
                 return a//b
+
         # 以下实现 BNF 表达式的语法分析
         def expression(i):
             i, a = term(i)
@@ -50,7 +52,6 @@ class Solution:
                 i, b = factor(i)
                 a = cpu(a, op , b)
             return i, a
-                
         def factor(i):
             if tokens[i].isdigit():
                 return i+1, int(tokens[i])
